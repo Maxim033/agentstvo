@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ property.title }}{% endblock %}
+
+{% block content %}
+    <div class="property-details">
+        <h2>{{ property.title }}</h2>
+        <p><strong>Описание:</strong> {{ property.description or 'Нет описания' }}</p>
+        <p><strong>Цена:</strong> {{ "{:,}".format(property.price) }} ₽</p>
+        <p><strong>Адрес:</strong> {{ property.address }}</p>
+        <p><strong>Количество комнат:</strong> {{ property.rooms }}</p>
+        <p><strong>Площадь:</strong> {{ property.area }} м²</p>
+        <p><strong>Тип недвижимости:</strong> 
+            {% if property.property_type == 'apartment' %}Квартира
+            {% elif property.property_type == 'house' %}Дом
+            {% else %}Коммерческая{% endif %}
+        </p>
+        <p><strong>Дата добавления:</strong> {{ property.created_at.strftime('%d.%m.%Y') }}</p>
+        
+        <div class="property-actions">
+            <a href="{{ url_for('main.edit_property', id=property.id) }}" class="btn">Редактировать</a>
+            <a href="{{ url_for('main.delete_property', id=property.id) }}" class="btn btn-danger">Удалить</a>
+            <a href="{{ url_for('main.index') }}" class="btn">Назад к списку</a>
+        </div>
+    </div>
+{% endblock %}

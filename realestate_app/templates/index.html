@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h2>Список объектов недвижимости</h2>
+    <a href="{{ url_for('main.add_property') }}" class="btn">Добавить новый объект</a>
+    
+    <div class="properties-grid">
+        {% for property in properties %}
+            <div class="property-card">
+                <h3>{{ property.title }}</h3>
+                <p><strong>Цена:</strong> {{ "{:,}".format(property.price) }} ₽</p>
+                <p><strong>Адрес:</strong> {{ property.address }}</p>
+                <p><strong>Тип:</strong> 
+                    {% if property.property_type == 'apartment' %}Квартира
+                    {% elif property.property_type == 'house' %}Дом
+                    {% else %}Коммерческая{% endif %}
+                </p>
+                <div class="property-actions">
+                    <a href="{{ url_for('main.property', id=property.id) }}" class="btn">Подробнее</a>
+                    <a href="{{ url_for('main.edit_property', id=property.id) }}" class="btn">Редактировать</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Нет доступных объектов недвижимости.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
