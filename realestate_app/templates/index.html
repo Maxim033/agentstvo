@@ -1,25 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Главная{% endblock %}
+{% block title %}Все объекты недвижимости{% endblock %}
 
 {% block content %}
-    <h2>Список объектов недвижимости</h2>
-    <a href="{{ url_for('main.add_property') }}" class="btn">Добавить новый объект</a>
+    <h2><i class="fas fa-building"></i> Список объектов недвижимости</h2>
     
     <div class="properties-grid">
         {% for property in properties %}
             <div class="property-card">
+                {% if property.image %}
+                <img src="{{ url_for('static', filename='uploads/' + property.image) }}" alt="{{ property.title }}" class="property-image">
+                {% endif %}
+                
                 <h3>{{ property.title }}</h3>
-                <p><strong>Цена:</strong> {{ "{:,}".format(property.price) }} ₽</p>
-                <p><strong>Адрес:</strong> {{ property.address }}</p>
-                <p><strong>Тип:</strong> 
-                    {% if property.property_type == 'apartment' %}Квартира
-                    {% elif property.property_type == 'house' %}Дом
-                    {% else %}Коммерческая{% endif %}
-                </p>
+                <p class="price-tag">{{ property.price|format_price }} ₽</p>
+                
+                <div class="property-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> {{ property.address }}</span>
+                    <span><i class="fas fa-door-open"></i> {{ property.rooms }} комн.</span>
+                    <span><i class="fas fa-vector-square"></i> {{ property.area }} м²</span>
+                </div>
+                
+                <p>{{ property.description|truncate(150) }}</p>
+                
                 <div class="property-actions">
-                    <a href="{{ url_for('main.property', id=property.id) }}" class="btn">Подробнее</a>
-                    <a href="{{ url_for('main.edit_property', id=property.id) }}" class="btn">Редактировать</a>
+                    <a href="{{ url_for('main.property', id=property.id) }}" class="btn">
+                        <i class="fas fa-eye"></i> Подробнее
+                    </a>
+                    <a href="{{ url_for('main.edit_property', id=property.id) }}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Редактировать
+                    </a>
                 </div>
             </div>
         {% else %}

@@ -1,4 +1,9 @@
-flask
-flask-sqlalchemy
-flask-wtf
-python-dotenv
+flask==2.3.2
+flask-sqlalchemy==3.0.3
+flask-wtf==1.1.1
+werkzeug==2.3.6
+pillow==10.0.0
+python-dotenv==1.0.0
+flask-login==0.6.2  # для защиты маршрутов
+flask-migrate==4.0.4  # для миграций БД
+wtforms==3.0.1

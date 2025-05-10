@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Риэлторское агентство - {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Риэлторское агентство "Домовой"</h1>
+        <h1><i class="fas fa-home"></i> Риэлторское агентство "Домовой"</h1>
         <nav>
-            <a href="{{ url_for('main.index') }}">Главная</a>
-            <a href="{{ url_for('main.add_property') }}">Добавить объект</a>
+            <a href="{{ url_for('main.index') }}"><i class="fas fa-list"></i> Все объекты</a>
+            <a href="{{ url_for('main.add_property') }}"><i class="fas fa-plus"></i> Добавить объект</a>
         </nav>
     </header>
     <main>
@@ -25,7 +26,7 @@
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; 2023 Риэлторское агентство "Домовой"</p>
+        <p>&copy; {{ now.year }} Риэлторское агентство "Домовой"</p>
     </footer>
 </body>
 </html>
